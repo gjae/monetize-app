@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component{
 	}
 
 	_request(){
-		return fetch('http://192.168.43.43:8000/api/cuentas');
+		return fetch('http://192.168.0.125:8000/api/cuentas');
 	}
 
 	componentDidMount(){
