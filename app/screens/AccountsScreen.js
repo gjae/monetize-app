@@ -18,7 +18,6 @@ export default class AccountsScreen extends React.Component{
 	render(){
 		const { params } = this.props.navigation.state
 		const { navigate } = this.props.navigation;
-		Alert.alert('Test', JSON.stringify(params))
 		return(
 			<View>
 				<Button onPress={()=>{ navigate(params.prevScreen) } }>

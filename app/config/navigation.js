@@ -2,16 +2,22 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import LoginScreen from '../screens/LoginScreen'
 import HomeScreen from '../screens/HomeScreen'
 import AccountsScreen from '../screens/AccountsScreen'
+import CuentaScreen from '../screens/CuentaScreen'
+import DrawerNav from '../componentes/DrawerNav'
 
 
-const Profile = StackNavigator({
-	accounts: {
-		screen: AccountsScreen 
-	}
-})
-
-export const navigator = DrawerNavigator({
-	Login: { screen: LoginScreen },
-	Home: { screen: HomeScreen },
-	profile: { screen: AccountsScreen },
-})
+export const navigator = StackNavigator({
+	Login: { 
+		screen: LoginScreen, 
+		navigationOptions: {
+			header: false
+		}
+	},
+	Home: { 
+		screen: HomeScreen,
+		navigationOptions:{
+			header: false
+		}
+	},
+	Detalle: {screen: CuentaScreen}
+});
