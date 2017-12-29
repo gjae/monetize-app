@@ -13,7 +13,9 @@ import {
 	List,
 	ListItem,
 	Right,
-	Icon
+	Icon,
+	Fab,
+	Row
 } from 'native-base'
 
 import {
@@ -29,12 +31,13 @@ export default class HomeScreen extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			cuentas : []
+			cuentas : [],
+			activeFab: false
 		} // END STATE
 	}
 
 	_request(){
-		return fetch('http://192.168.0.125:8000/api/cuentas');
+		return fetch('http://192.168.43.43:8000/api/cuentas');
 	}
 
 	componentDidMount(){
@@ -67,11 +70,27 @@ export default class HomeScreen extends React.Component{
 		const {width, height} = Dimensions.get('window')
 		return(
 			<Container style={{ backgroundColor: "#FFFFFF", width, height }}>
-				<HeaderApp color={'#90DD76'} headerTitle={'Registro de cuentas'} />
-				<Content>
+				<HeaderApp color={'#90DD76'} headerTitle={'Registro de cuentas'} navigation={this.props.navigation} />
+				<Content style={{width: width, height: height}}>
+					<View style={{flex: 1}} >
 					<List>
 						{this._renderList()}
 					</List>
+						<Fab
+							active={ this.state.activeFab }
+							direction={"up"}
+							style={{backgroundColor: "#90DD76", bottom: 0}}
+							position={"bottomRight"}
+							onPress={()=> this.setState({ activeFab: !this.state.activeFab }) }
+							containerStyle={{ }}
+
+						>
+							<Icon name={'settings'} />
+							<Button style={{backgroundColor:"#90DD76"}} >
+								<Icon name={'bookmarks'} />
+							</Button>
+						</Fab>
+					</View>
 				</Content>
 			</Container>
 		);

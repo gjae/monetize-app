@@ -16,6 +16,9 @@ import {
 
 export default class HeaderApp extends React.Component {
 
+	constructor(props){
+		super(props)
+	}
 
 	render(){
 		return (
@@ -26,8 +29,8 @@ export default class HeaderApp extends React.Component {
 					</Title>
 				</Body>
 				<Right>
-					<TouchableOpacity>
-						<Icon name={'eye'} />
+					<TouchableOpacity onPress={()=>{this.props.navigation.navigate('NuevaCuenta')}}>
+						<Icon name={'bookmarks'} style={{color: "#ffffff"}} color={'#ffffff'} />
 					</TouchableOpacity>
 				</Right>
 			</Header>

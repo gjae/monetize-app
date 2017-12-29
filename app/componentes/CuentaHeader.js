@@ -25,7 +25,7 @@ export default class CuentaHeader extends React.Component{
 			<Container style={{backgroundColor: "#ffffff"}}>
 				<Content>
 					<Grid>
-						<Row style={{ height: (height*34)/100, backgroundColor:"#90DC75"  }}>
+						<Row style={{ height: (height*45)/100, backgroundColor:"#90DC75"  }}>
 							<Text style={{color: "#ffffff"}}>
 								Hola mundo
 							</Text>
