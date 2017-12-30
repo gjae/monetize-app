@@ -12,14 +12,19 @@ import {
 	Item,
 	Button,
 	Icon,
+	H3,
 	Picker,
+	Toast,
+	ActionSheet,
+	Root
 } from 'native-base'
 
 import {
-	Alert
+	Alert,
 } from 'react-native'
 
 import {networkConnectData as con} from '../config/connection'
+import DatePicker from 'react-native-datepicker'
 
 export default class FormAddCuenta extends Component{
 	static navigationOptions = ({navigation}) =>({
@@ -36,14 +41,20 @@ export default class FormAddCuenta extends Component{
 			cedula_titular: null,
 			email_titular: null,
 			user_id: 1,
-			fecha_apertura: null,
+			fecha_apertura: '1995-01-01',
 			descripcion: null,
 			nro_cuenta: null,
 			tipo_cuenta: "C",
 			banco_id: 0,
-			bancos: []
+			bancos: [],
+			showToast: false
 
 		}
+	}
+
+	componentWillMount(){
+		Toast.toastInstance = null;
+		ActionSheet.actionsheetInstance = null;
 	}
 
 	async componentDidMount(){
@@ -77,8 +88,24 @@ export default class FormAddCuenta extends Component{
 		return items;
 	}
 
+	async sendCuenta(){
+		var data = encodeURIComponent( JSON.stringify(this.state) )
+	
+		let resp = await fetch( con.protocol+'//'+con.host+':'+con.port+'/api/cuentas/crear',{
+			method: 'POST',
+			body: JSON.stringify({nombre_titular: "Giovanny"})
+		} ).then( data => data );
+
+		Alert.alert('TIPOS', JSON.stringify(resp))
+		Toast.show({
+			text: "CUENTA RECIBIDA",
+			position: 'bottom',
+			duration: 3000
+		})
+	}
 	render(){
 		return(
+			<Root>
 			<Container style={{backgroundColor: "#ffffff"}}>
 				<Content>
 					<Form>
@@ -136,12 +163,58 @@ export default class FormAddCuenta extends Component{
 									</Col>
 								</Row>
 								<Row>
+									<Col>
+										<H3>Fech de apertura</H3>
+								      <DatePicker
+								        style={{width: 200}}
+								        date={this.state.fecha_apertura}
+								        mode="date"
+								        placeholder="Seleccione fecha"
+								        format="YYYY-MM-DD"
+								        minDate="1995-01-01"
+								        maxDate="2020-12-31"
+								        confirmBtnText="Confirmar"
+								        cancelBtnText="Cancelar"
+								        customStyles={{
+								          dateIcon: {
+								            position: 'absolute',
+								            left: 0,
+								            top: 4,
+								            marginLeft: 0
+								          },
+								          dateInput: {
+								            marginLeft: 36
+								          }
+								          // ... You can check the source to find the other keys.
+								        }}
+								        onDateChange={(date) => {this.setState({fecha_apertura: date})}}
+								      />
+								    </Col>
+								</Row>
+								<Row>
+									<Col>
+										<Item>
+											<Input onChangeTex={(text)=>{ this.setState({cedula_titular : text}) }} placeholder={'Cedula del titular'} />
+										</Item>
+									</Col>
+									<Col>
+										<Item>
+											<Input onChangeTex={(text)=>{ this.setState({email_titular : text}) }} placeholder={'Correo electronico del titular'} />
+										</Item>
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<Item>
+											<Input multiline={true} numberOfLines={2} onChangeTex={(text)=>{this.setState({descripcion: text})}} placeholder={'Agrega una descripcion'} />
+										</Item>
+									</Col>
+								</Row>
+								<Row>
 									<Col style={{ width: "100%" }}>
 										<Button 
 											iconLeft block style={{backgroundColor: "blue"}}
-											onPress={()=>{
-												Alert.alert('DATOS', JSON.stringify(this.state))
-											}}
+											onPress={()=>{this.sendCuenta()}}
 										>
 											<Icon name='cloud-circle' />
 											<Text>Guardar</Text>
@@ -153,6 +226,7 @@ export default class FormAddCuenta extends Component{
 					</Form>
 				</Content>
 			</Container>
+			</Root>
 		)
 	}
 }
