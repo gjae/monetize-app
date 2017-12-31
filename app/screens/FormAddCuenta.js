@@ -49,7 +49,8 @@ export default class FormAddCuenta extends Component{
 			tipo_cuenta: "C",
 			banco_id: 0,
 			bancos: [],
-			showToast: false
+			showToast: false,
+			_btnSend: null
 
 		}
 	}
@@ -91,19 +92,42 @@ export default class FormAddCuenta extends Component{
 	}
 
 	async sendCuenta(){
-		var data = encodeURIComponent( JSON.stringify(this.state) )
-	
+		const { _btnSend } = this.state
+		_btnSend._root.disabled = true
+
+		let dataSerial = { 
+			nombre_titular : this.state.nombre_titular, 
+			apellido_titular : this.state.apellido_titular, 
+			cedula_titular : this.state.cedula_titular,
+			nro_cuenta : this.state.nro_cuenta,
+			banco_id : this.state.banco_id,
+			email_titular : this.state.email_titular,
+			descripcion : this.state.descripcion,
+			user_id : this.state.user_id,
+			fecha_apertura: this.state.fecha_apertura,
+			tipo_cuenta: this.state.tipo_cuenta };
+
+		//Alert.alert('DATOS', JSON.stringify(dataSerial));
+
 		let resp = await fetch( con.protocol+'//'+con.host+':'+con.port+'/api/cuentas/crear',{
 			method: 'POST',
-			body: JSON.stringify({nombre_titular: "Giovanny"})
-		} ).then( data => data );
+			headers:{
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(dataSerial)
+		} ).then( data => data._bodyInit );
 
-		Alert.alert('TIPOS', JSON.stringify(resp))
+		resp = JSON.parse(resp)
 		Toast.show({
-			text: "CUENTA RECIBIDA",
+			text: resp.mensaje,
 			position: 'bottom',
 			duration: 3000
 		})
+
+		setTimeout(()=>{
+			this.props.navigation.goBack();
+		}, 3000);
 	}
 	render(){
 		return(
@@ -208,7 +232,7 @@ export default class FormAddCuenta extends Component{
 								<Row>
 									<Col>
 										<Item>
-											<Input multiline={true} numberOfLines={2} onChangeTex={(text)=>{this.setState({descripcion: text})}} placeholder={'Agrega una descripcion'} />
+											<Input multiline={true} numberOfLines={2} onChangeText={(text)=>{this.setState({descripcion: text})}} placeholder={'Agrega una descripcion'} />
 										</Item>
 									</Col>
 								</Row>
@@ -218,6 +242,7 @@ export default class FormAddCuenta extends Component{
 											<Button 
 												iconLeft block style={{backgroundColor: "#90DC75"}}
 												onPress={()=>{this.sendCuenta()}}
+												ref={(c)=>this.state._btnSend = c}
 											>
 												<Text>
 													<FontAwesome style={{fontSize: 23}}>{Icons.check}</FontAwesome>
