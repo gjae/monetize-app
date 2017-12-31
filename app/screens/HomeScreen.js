@@ -76,20 +76,6 @@ export default class HomeScreen extends React.Component{
 					<List>
 						{this._renderList()}
 					</List>
-						<Fab
-							active={ this.state.activeFab }
-							direction={"up"}
-							style={{backgroundColor: "#90DD76", bottom: 0}}
-							position={"bottomRight"}
-							onPress={()=> this.setState({ activeFab: !this.state.activeFab }) }
-							containerStyle={{ }}
-
-						>
-							<Icon name={'settings'} />
-							<Button style={{backgroundColor:"#90DD76"}} >
-								<Icon name={'bookmarks'} />
-							</Button>
-						</Fab>
 					</View>
 				</Content>
 			</Container>

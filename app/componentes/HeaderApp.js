@@ -6,13 +6,18 @@ import {
 	Right,
 	Body,
 	Title,
-	Icon
+	Icon,
 } from 'native-base'
+
+import {
+	Text
+} from 'react-native'
 
 import {
 	TouchableOpacity
 } from 'react-native'
 
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 export default class HeaderApp extends React.Component {
 
@@ -30,7 +35,9 @@ export default class HeaderApp extends React.Component {
 				</Body>
 				<Right>
 					<TouchableOpacity onPress={()=>{this.props.navigation.navigate('NuevaCuenta')}}>
-						<Icon name={'bookmarks'} style={{color: "#ffffff"}} color={'#ffffff'} />
+						<Text>
+							<FontAwesome style={{ fontSize: 32 }} color={"#ffffff"}>{Icons.pencil}</FontAwesome>
+						</Text>
 					</TouchableOpacity>
 				</Right>
 			</Header>

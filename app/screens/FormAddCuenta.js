@@ -26,6 +26,8 @@ import {
 import {networkConnectData as con} from '../config/connection'
 import DatePicker from 'react-native-datepicker'
 
+import FontAwesome, { Icons } from 'react-native-fontawesome';
+
 export default class FormAddCuenta extends Component{
 	static navigationOptions = ({navigation}) =>({
 		title: 'Agregar cuenta',
@@ -211,15 +213,19 @@ export default class FormAddCuenta extends Component{
 									</Col>
 								</Row>
 								<Row>
-									<Col style={{ width: "100%" }}>
-										<Button 
-											iconLeft block style={{backgroundColor: "blue"}}
-											onPress={()=>{this.sendCuenta()}}
-										>
-											<Icon name='cloud-circle' />
-											<Text>Guardar</Text>
-										</Button>
-									</Col>
+									<Container padder>
+										<Col style={{ width: "100%" }}>
+											<Button 
+												iconLeft block style={{backgroundColor: "#90DC75"}}
+												onPress={()=>{this.sendCuenta()}}
+											>
+												<Text>
+													<FontAwesome style={{fontSize: 23}}>{Icons.check}</FontAwesome>
+													Guardar
+												</Text>
+											</Button>
+										</Col>
+									</Container>
 								</Row>
 							</Content>
 						</Container>

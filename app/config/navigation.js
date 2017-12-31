@@ -5,6 +5,7 @@ import AccountsScreen from '../screens/AccountsScreen'
 import CuentaScreen from '../screens/CuentaScreen'
 import DrawerNav from '../componentes/DrawerNav'
 import FormAddCuenta from '../screens/FormAddCuenta'
+import MovimientosScreen from '../screens/MovimientosScreen'
 
 
 export const navigator = StackNavigator({
@@ -23,5 +24,6 @@ export const navigator = StackNavigator({
 	NuevaCuenta: {
 		screen: FormAddCuenta
 	},
-	Detalle: {screen: CuentaScreen}
+	Detalle: {screen: CuentaScreen},
+	Movimientos:{ screen: MovimientosScreen }
 });

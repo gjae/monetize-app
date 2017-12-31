@@ -11,6 +11,7 @@
 		"react": "16.0.0",
 		"react-native": "0.50.4",
 		"react-native-datepicker": "^1.6.0",
+		"react-native-fontawesome": "^5.7.0",
 		"react-native-share": "^1.0.23",
 		"react-navigation": "^1.0.0-beta.21",
 		"redux": "^3.7.2"
